@@ -394,20 +394,29 @@ rtt min/avg/max/mdev = 15.489/16.141/16.794/0.652 ms
 
 #### ☀️ Sur web.lan2.tp2
 
-[vince@node2 ~]$ echo 'web.lan2.tp2' | sudo tee /etc/hostname
-[vince@node2 ~]$ sudo dnf install nginx
-[vince@node2 ~]$ sudo mkdir -p /var/www/site_nul/
-[vince@node2 ~]$ sudo chown -R nginx:nginx /var/www/site_nul/
-[vince@node2 ~]$ sudo chmod -R 755 /var/www/site_nul/
-[vince@node2 ~]$ sudo nano /etc/nginx/conf.d/site_nul.conf
-[vince@node2 ~]$ sudo systemctl start nginx
+```[vince@node2 ~]$ echo 'web.lan2.tp2' | sudo tee /etc/hostname```
 
+```[vince@node2 ~]$ sudo dnf install nginx```
+
+```[vince@node2 ~]$ sudo mkdir -p /var/www/site_nul/```
+
+```[vince@node2 ~]$ sudo chown -R nginx:nginx /var/www/site_nul/```
+
+```[vince@node2 ~]$ sudo chmod -R 755 /var/www/site_nul/```
+
+```[vince@node2 ~]$ sudo nano /etc/nginx/conf.d/site_nul.conf```
+
+```[vince@node2 ~]$ sudo systemctl start nginx```
+
+```bash
 [vince@node2 ~]$ sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
 success
 [vince@node2 ~]$ sudo ss -tulnp | grep :80
 tcp   LISTEN 0      511          0.0.0.0:80        0.0.0.0:*    users:(("nginx",pid=11334,fd=6),("nginx",pid=11328,fd=6))
 tcp   LISTEN 0      511             [::]:80           [::]:*    users:(("nginx",pid=11334,fd=7),("nginx",pid=11328,fd=7))
+```
 
+```bash 
 [vince@node2 ~]$ sudo firewall-cmd --list-all
 public (active)
   target: default
@@ -423,7 +432,9 @@ public (active)
   source-ports:
   icmp-blocks:
   rich rules:
+  ```
 
+```bash 
 [vince@node2 ~]$ curl http://10.1.2.12
 <!DOCTYPE html>
 <html>
@@ -434,9 +445,11 @@ public (active)
     <h1>Bienvenue sur le site nul !</h1>
 </body>
 </html>
+```
 
 ###☀️ Sur node1.lan1.tp2
 
+```bash
 [vince@node1 ~]$ ping site_nul.tp2
 PING site_nul.tp2 (10.1.2.12) 56(84) bytes of data.
 64 bytes from site_nul.tp2 (10.1.2.12): icmp_seq=1 ttl=63 time=3.45 ms
@@ -445,7 +458,9 @@ PING site_nul.tp2 (10.1.2.12) 56(84) bytes of data.
 --- site_nul.tp2 ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 1002ms
 rtt min/avg/max/mdev = 3.287/3.370/3.454/0.083 ms
+```
 
+```bash
 [vince@node1 ~]$ curl http://site_nul.tp2
 <!DOCTYPE html>
 <html>
@@ -456,4 +471,5 @@ rtt min/avg/max/mdev = 3.287/3.370/3.454/0.083 ms
     <h1>Bienvenue sur le site nul !</h1>
 </body>
 </html>
+```
 
